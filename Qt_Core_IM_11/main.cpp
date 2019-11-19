@@ -9,7 +9,7 @@ void saveAge(QSettings* setting,QString group, QString name, int age) {
 	setting->endGroup();
 }
 
-int getAge(QSettings* setting, QString group, QString name, int age) {
+int getAge(QSettings* setting, QString group, QString name) {
 	setting->beginGroup(group);
 
 	if (!setting->contains(name)) {
@@ -46,8 +46,16 @@ int main(int argc, char* argv[])
 	//settings.setValue("test", 123);
 
 	// Read the setting back
-	qInfo() << settings.value("test").toString();
-	qInfo() << settings.value("test").toInt();
+	//qInfo() << settings.value("test").toString();
+	//qInfo() << settings.value("test").toInt();
+
+	saveAge(&settings, "people", "Bryan", 44);
+	saveAge(&settings, "bear", "twoheart", 1);
+	saveAge(&settings, "bear", "Bryan", 2);
+
+	qInfo() << "twoheart" << getAge(&settings, "bear", "twoheart");
+	qInfo() << "Bryan" << getAge(&settings, "bear", "Bryan");
+
 
 	return a.exec();
 }
